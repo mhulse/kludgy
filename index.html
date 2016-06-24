@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Random Google Street View Location Script</title>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.21"></script>
+	<script>
+		
+		var service
+		var panorama; // Google Maps StreetViewPanorama object.
+		var locations=[]; // array of LatLng locations we have seen panoramas at.
+		var counter = 0; // Counts the number of clicks on the Teleport button
+		
+		function alreadyVisited(pos) {
+			
+			var nope = true;
+			var i = 0;
+			
+			while (nope && i < locations.length) {
+				
+				var ob = locations[i];
+				var areEqual = equalLatLngs(pos, ob);
+				
+				if (areEqual) {
+					
+					nope = false;
+					
+				} else {
+					
+					i++;
+					
+				}
+				
+			} if (nope) {
+				
+				locations.push(pos);
+				
+			}
+			
+			return ( ! nope);
+			
+		}
+		
+		function equalLatLngs(o1, o2) {
+			
+			return (google.maps.geometry.spherical.computeDistanceBetween(o1, o2) < 10) ? true : false;
+			
+		}
+
+		function panorama() {
+			
+			var randomLocation = randomLatLng();
+			
+			setNearestPanorama(randomLocation, 50, false);
+			
+		}
+
+		function randomLatLng() {
+			
+			var randomLatitude = Math.random() * Math.max((180 - counter * .25), 120) - (90 - Math.min(counter * .25, 45));
+			var randomLongitude = Math.random() * 360 - 180;
+			
+			return new google.maps.LatLng(randomLatitude, randomLongitude);
+			
+		}
+		
+		function setNearestPanorama(coords, bounds, allowRepeatedVisits) {
+			
+			var check = (bounds || 50);
+			
+			service.getPanoramaByLocation(coords, check, function(panoData) {
+				
+				var found = false;
+				var loc;
+				var panoramaIsVisible;
+				
+				if (panoData) {
+					
+					if (panoData.location) {
+						
+						if (panoData.location.latLng) {
+							
+							found = true;
+							
+						}
+						
+					 }
+					 
+				}
+				
+				if (found) {
+					
+					loc = panoData.location.latLng;
+					
+					if (allowRepeatedVisits || ( ! alreadyVisited(loc))) {
+						
+						console.log(loc.lat(), loc.lng())
+						
+					} else {
+						
+						panorama();
+						
+					}
+					
+				} else {
+					
+					setNearestPanorama(coords, (check * 2), allowRepeatedVisits);
+					
+				}
+				
+			});
+			
+		}
+
+		google.maps.event.addDomListener(window, 'load', function() {
+			
+			service = new google.maps.StreetViewService();
+			
+			panorama();
+			
+		});
+		
+	</script>
+</head>
+<body>
+	<p>View console for output</p>
+</body>
+</html>

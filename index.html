@@ -1,128 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Random Google Street View Location Script</title>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"></script>
-	<script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"></script>
+<script>
+	
+	var service
+	var panorama; // Google Maps StreetViewPanorama object.
+	var locations=[]; // array of LatLng locations we have seen panoramas at.
+	var counter = 0; // Counts the number of clicks on the Teleport button
+	
+	function alreadyVisited(pos) {
 		
-		var service
-		var panorama; // Google Maps StreetViewPanorama object.
-		var locations=[]; // array of LatLng locations we have seen panoramas at.
-		var counter = 0; // Counts the number of clicks on the Teleport button
+		var nope = true;
+		var i = 0;
 		
-		function alreadyVisited(pos) {
+		while (nope && i < locations.length) {
 			
-			var nope = true;
-			var i = 0;
+			var ob = locations[i];
+			var areEqual = equalLatLngs(pos, ob);
 			
-			while (nope && i < locations.length) {
+			if (areEqual) {
 				
-				var ob = locations[i];
-				var areEqual = equalLatLngs(pos, ob);
+				nope = false;
 				
-				if (areEqual) {
-					
-					nope = false;
-					
-				} else {
-					
-					i++;
-					
-				}
+			} else {
 				
-			} if (nope) {
-				
-				locations.push(pos);
+				i++;
 				
 			}
 			
-			return ( ! nope);
+		} if (nope) {
+			
+			locations.push(pos);
 			
 		}
 		
-		function equalLatLngs(o1, o2) {
-			
-			return (google.maps.geometry.spherical.computeDistanceBetween(o1, o2) < 10) ? true : false;
-			
-		}
-
-		function panorama() {
-			
-			var randomLocation = randomLatLng();
-			
-			setNearestPanorama(randomLocation, 50, false);
-			
-		}
-
-		function randomLatLng() {
-			
-			var randomLatitude = Math.random() * Math.max((180 - counter * .25), 120) - (90 - Math.min(counter * .25, 45));
-			var randomLongitude = Math.random() * 360 - 180;
-			
-			return new google.maps.LatLng(randomLatitude, randomLongitude);
-			
-		}
+		return ( ! nope);
 		
-		function setNearestPanorama(coords, bounds, allowRepeatedVisits) {
+	}
+	
+	function equalLatLngs(o1, o2) {
+		
+		return (google.maps.geometry.spherical.computeDistanceBetween(o1, o2) < 10) ? true : false;
+		
+	}
+
+	function panorama() {
+		
+		var randomLocation = randomLatLng();
+		
+		setNearestPanorama(randomLocation, 50, false);
+		
+	}
+
+	function randomLatLng() {
+		
+		var randomLatitude = Math.random() * Math.max((180 - counter * .25), 120) - (90 - Math.min(counter * .25, 45));
+		var randomLongitude = Math.random() * 360 - 180;
+		
+		return new google.maps.LatLng(randomLatitude, randomLongitude);
+		
+	}
+	
+	function setNearestPanorama(coords, bounds, allowRepeatedVisits) {
+		
+		var check = (bounds || 50);
+		
+		service.getPanoramaByLocation(coords, check, function(panoData) {
 			
-			var check = (bounds || 50);
+			var found = false;
+			var loc;
+			var panoramaIsVisible;
 			
-			service.getPanoramaByLocation(coords, check, function(panoData) {
+			if (panoData) {
 				
-				var found = false;
-				var loc;
-				var panoramaIsVisible;
-				
-				if (panoData) {
+				if (panoData.location) {
 					
-					if (panoData.location) {
+					if (panoData.location.latLng) {
 						
-						if (panoData.location.latLng) {
-							
-							found = true;
-							
-						}
-						
-					 }
-					 
-				}
-				
-				if (found) {
-					
-					loc = panoData.location.latLng;
-					
-					if (allowRepeatedVisits || ( ! alreadyVisited(loc))) {
-						
-						console.log(loc.lat(), loc.lng())
-						
-					} else {
-						
-						panorama();
+						found = true;
 						
 					}
 					
+				 }
+				 
+			}
+			
+			if (found) {
+				
+				loc = panoData.location.latLng;
+				
+				if (allowRepeatedVisits || ( ! alreadyVisited(loc))) {
+					
+					document.write(loc.lat() + '/' + loc.lng());
+					
 				} else {
 					
-					setNearestPanorama(coords, (check * 2), allowRepeatedVisits);
+					panorama();
 					
 				}
 				
-			});
-			
-		}
-
-		google.maps.event.addDomListener(window, 'load', function() {
-			
-			service = new google.maps.StreetViewService();
-			
-			panorama();
+			} else {
+				
+				setNearestPanorama(coords, (check * 2), allowRepeatedVisits);
+				
+			}
 			
 		});
 		
-	</script>
-</head>
-<body>
-	<p>View console for output</p>
-</body>
-</html>
+	}
+
+	google.maps.event.addDomListener(window, 'load', function() {
+		
+		service = new google.maps.StreetViewService();
+		
+		panorama();
+		
+	});
+	
+</script>

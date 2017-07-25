@@ -1,24 +1,19 @@
 {
-  "name": "node-rando-cli",
-  "version": "1.0.0",
+  "name": "random-street-coords",
+  "version": "0.1.0",
   "description": "",
   "author": "",
   "license": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node . -h"
+    ""
   },
+  "main": "index.js",
   "repository": {
     "type": "",
     "url": ""
   },
-  "bin": {
-    "randoo": "app/index.js"
-  },
   "dependencies": {
     "extract-streetview": "^1.2.0",
-    "google-panorama-by-location": "^4.1.1",
-    "google-panorama-equirectangular": "^2.1.0",
     "zombie": "^5.0.7"
   }
 }

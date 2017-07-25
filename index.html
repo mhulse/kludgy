@@ -86,12 +86,13 @@
 			if (found) {
 				
 				loc = panoData.location.latLng;
-				
+				console.log(panoData)
 				if (allowRepeatedVisits || ( ! alreadyVisited(loc))) {
 					
 					window.COORDS = JSON.stringify({
 						lat: loc.lat(),
-						lng: loc.lng()
+						lng: loc.lng(),
+						id: panoData.location.pano
 					});
 					
 					//console.log(window.COORDS);

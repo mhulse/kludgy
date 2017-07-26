@@ -4,15 +4,9 @@
   "description": "",
   "author": "",
   "license": "",
-  "links": {
-    "tmux EVENT_NOKQUEUE reasoning": "https://github.com/tmux/tmux/issues/475#issuecomment-231527324",
-    "How to pass positional args to run-script": "https://github.com/npm/npm/pull/5518#issuecomment-312459196"
-  },
   "scripts": {
-    "latlng": "LATLNG=\"$(node .)\" && echo $LATLNG",
-    "basic": "LATLNG=\"$(node .)\" && extract-streetview \"$LATLNG\" --zoom max > ~/Desktop/panorama.png",
-    "_pano": "f() { export EVENT_NOKQUEUE=1; LATLNG=\"$(node .)\" && extract-streetview \"$LATLNG\" --zoom max > \"${1}pano-${LATLNG}.png\" && xxxxxxx; }; f",
-    "pano": "npm run _pano",
+    "coords": "source ./pano.sh; getCoords",
+    "pano": "source ./pano.sh; makePano",
     "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",
     "example": "npm run _example -- world stranger"
   },

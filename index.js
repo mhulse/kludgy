@@ -5,9 +5,8 @@ const path = require('path');
 const zombie = require('zombie');
 
 browser = new zombie({
-	debug: false,
-	runScripts: true,
-	loadCSS: false
+	loadCSS: false,
+	waitDuration: 10000
 });
 
 browser.visit(`file://${path.resolve('./index.html')}`, function(error) {

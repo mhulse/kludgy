@@ -4,16 +4,19 @@
   "description": "",
   "author": "",
   "license": "",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "main": "index",
   "scripts": {
     "coords": "source ./pano.sh; getCoords",
     "pano": "source ./pano.sh; makePano",
     "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",
     "example": "npm run _example -- world stranger"
   },
-  "main": "index.js",
-  "repository": {
-    "type": "",
-    "url": ""
+  "bin": {
+    "pano": "bin.js"
   },
   "dependencies": {
     "extract-streetview": "^1.2.0",

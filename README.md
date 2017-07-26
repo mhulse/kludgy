@@ -15,9 +15,9 @@ How to run:
 ```bash
 # Returns random lat/long and pano ID:
 $ node .
-$ npm run latlng
-# Creates pano on macOS desktop:
-$ npm run basic
-# Creates pano plus geo tag using exiftool (ending slash required!):
+$ npm run coords
+# Sets desktop with geo tagged pano:
+$ npm run pano
+# Same as above, but pano images are saved to the desktop:
 $ npm run pano -- /Users/mhulse/Desktop/
 ```

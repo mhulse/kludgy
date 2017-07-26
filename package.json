@@ -10,6 +10,7 @@
   },
   "main": "index",
   "scripts": {
+    "esv": "extract-streetview",
     "coords": "source ./pano.sh; getCoords",
     "pano": "source ./pano.sh; makePano",
     "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",

@@ -1,0 +1,26 @@
+{
+  "name": "random-street-coords",
+  "version": "0.1.0",
+  "description": "",
+  "author": "",
+  "license": "",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "main": "index",
+  "scripts": {
+    "esv": "extract-streetview",
+    "coords": "source ./pano.sh; getCoords",
+    "pano": "source ./pano.sh; makePano",
+    "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",
+    "example": "npm run _example -- world stranger"
+  },
+  "bin": {
+    "pano": "bin.js"
+  },
+  "dependencies": {
+    "extract-streetview": "^1.2.0",
+    "zombie": "^5.0.7"
+  }
+}

@@ -8,18 +8,20 @@
     "type": "",
     "url": ""
   },
-  "main": "index",
+  "main": "main",
   "scripts": {
     "esv": "extract-streetview",
     "coords": "source ./pano.sh; getCoords",
     "pano": "source ./pano.sh; makePano",
+    "start": "npm run pano",
     "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",
     "example": "npm run _example -- world stranger"
   },
   "bin": {
-    "pano": "bin.js"
+    "desktopano": "bin.js"
   },
   "dependencies": {
+    "concat": "^1.0.3",
     "extract-streetview": "^1.2.0",
     "zombie": "^5.0.7"
   }

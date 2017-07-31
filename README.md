@@ -17,6 +17,8 @@ How to run:
 $ node .
 $ npm run coords
 # Sets desktop with geo tagged pano:
+$ npm start
+# … or:
 $ npm run pano
 # Same as above, but pano images are saved to the desktop:
 $ npm run pano -- /Users/mhulse/Desktop/

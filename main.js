@@ -3,15 +3,28 @@
 
 const path = require('path');
 const zombie = require('zombie');
+const concat = require('concat');
 
 browser = new zombie({
 	loadCSS: false,
 	//waitDuration: (10 * 1000),
 });
 
+function init() {
+	
+	concat([
+		'top.html',
+		'bottom.html',
+	], 'main.html')
+	.then(() => {
+		start();
+	});
+	
+}
+
 function start() {
 	
-	browser.visit(`file://${path.resolve('./index.html')}`, function(error) {
+	browser.visit(`file://${path.resolve('./main.html')}`, function(error) {
 		
 		if ( ! error) {
 			
@@ -27,7 +40,7 @@ function start() {
 					// https://github.com/mhulse/random-street-coords/issues/4
 					if (coords.copyright == '© 2017 Google') {
 						
-						console.log(`${coords.lat},${coords.lng}`);
+						console.log(`${coords.lat},${coords.lng},${coords.id}`);
 						
 					} else {
 						
@@ -47,4 +60,4 @@ function start() {
 	
 }
 
-start();
+init();

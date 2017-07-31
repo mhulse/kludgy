@@ -1,6 +1,108 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"></script>
 <script>
 	
+	function zombieWait() {
+		
+		return ( !! window.COORDS);
+		
+	};
+	
+	(function() {
+		
+		var service
+		var panorama;
+		var locations = [];
+		
+		function equalLatLngs(o1, o2) {
+			
+			return (google.maps.geometry.spherical.computeDistanceBetween(o1, o2) < 10) ? true : false;
+			
+		}
+		
+		function panorama() {
+			
+			var randomLocation = randomLatLng();
+			
+			setNearestPanorama(randomLocation);
+			
+		}
+		
+		function randomLatLng() {
+			
+			var randomLatitude = Math.random() * Math.max((180 * .25), 120) - (90 - Math.min(.25, 45));
+			var randomLongitude = Math.random() * 360 - 180;
+			
+			return new google.maps.LatLng(randomLatitude, randomLongitude);
+			
+		}
+		
+		function setNearestPanorama(coords, bounds) {
+			
+			var check = (bounds || 50);
+			
+			service.getPanoramaByLocation(coords, check, function(panoData) {
+				
+				var found = false;
+				var loc;
+				
+				if (panoData) {
+					
+					if (panoData.location) {
+						
+						if (panoData.location.latLng) {
+							
+							found = true;
+							
+						}
+						
+					 }
+					 
+				}
+				
+				if (found) {
+					
+					loc = panoData.location.latLng;
+					
+					window.COORDS = JSON.stringify({
+						lat: loc.lat(),
+						lng: loc.lng(),
+						id: panoData.location.pano,
+						copyright: panoData.copyright,
+					});
+					
+					//console.log(panoData);
+					
+				} else {
+					
+					setNearestPanorama(coords, (check * 2));
+					
+				}
+				
+			});
+			
+		}
+		
+		google.maps.event.addDomListener(window, 'load', function() {
+			
+			service = new google.maps.StreetViewService();
+			
+			panorama();
+			
+		});
+		
+	})();
+	
+</script>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"></script>
+<script>
+	
+	zombie = function() {
+		
+		return !!window.COORDS 
+		
+	};
+	
 	var service
 	var panorama; // Google Maps StreetViewPanorama object.
 	var locations=[]; // array of LatLng locations we have seen panoramas at.
@@ -122,4 +224,4 @@
 		
 	});
 	
-</script>
+</script>-->

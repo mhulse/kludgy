@@ -6,22 +6,45 @@ const zombie = require('zombie');
 
 browser = new zombie({
 	loadCSS: false,
-	waitDuration: 10000
+	//waitDuration: (10 * 1000),
 });
 
-browser.visit(`file://${path.resolve('./index.html')}`, function(error) {
+function start() {
 	
-	if ( ! error) {
+	browser.visit(`file://${path.resolve('./index.html')}`, function(error) {
+		
+		if ( ! error) {
+			
+			browser
+				.wait()
+				.then(() => {
+					
+					coords = JSON.parse(browser.window.COORDS);
+					
+					browser.window.close();
+					
+					// Only Google panoramas work with this codebase.
+					// https://github.com/mhulse/random-street-coords/issues/4
+					if (coords.copyright == '© 2017 Google') {
+						
+						console.log(`${coords.lat},${coords.lng}`);
+						
+					} else {
+						
+						start();
+						
+					}
+					
+				});
+			
+		} else {
+			
+			throw error;
+			
+		}
+		
+	});
 	
-		browser.wait().then(() => {
-			coords = JSON.parse(browser.window.COORDS);
-			console.log(`${coords.lat},${coords.lng}`);
-		});
-		
-	} else {
-		
-		throw error;
-		
-	}
-	
-});
+}
+
+start();

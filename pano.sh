@@ -43,7 +43,7 @@ function makePano() {
 	lat=$(echo $latlon | cut -d',' -f1)
 	lon=$(echo $latlon | cut -d',' -f2)
 	
-	image="${abspath}/pano[${latlon}].png"
+	image="${abspath}/pano[${latlon}].jpg"
 	
 	extract-streetview "$latlon" --zoom max > "$image"
 	

@@ -13,6 +13,8 @@ $ brew install exiftool
 How to run:
 
 ```bash
+# Globally:
+$ dtpano
 # Returns random lat/long and pano ID:
 $ node .
 $ npm run coords

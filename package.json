@@ -18,7 +18,7 @@
     "example": "npm run _example -- world stranger"
   },
   "bin": {
-    "desktopano": "bin.js"
+    "dtpano": "bin.js"
   },
   "dependencies": {
     "concat": "^1.0.3",

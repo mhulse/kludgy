@@ -42,10 +42,18 @@ function makePano() {
 	
 	lat=$(echo $latlon | cut -d',' -f1)
 	lon=$(echo $latlon | cut -d',' -f2)
+	id=$(echo $latlon | cut -d',' -f3)
 	
-	image="${abspath}/pano[${latlon}].png"
+	image="${abspath}/pano[${id}].jpg"
 	
-	extract-streetview "$latlon" --zoom max > "$image"
+	extract-streetview \
+	"$id" \
+	--id \
+	--quality 1 \
+	--format "jpg" \
+	--source "outdoor" \
+	--zoom max \
+	> "$image"
 	
 	if [ ! -z "$(which exiftool)" ]; then
 		
@@ -53,8 +61,10 @@ function makePano() {
 		-overwrite_original \
 		-GPSLatitude=$lat \
 		-GPSLatitudeRef=$lat \
+		-XMP:GPSLatitude=$lat \
 		-GPSLongitude=$lon \
 		-GPSLongitudeRef=$lon \
+		-XMP:GPSLongitude=$lon \
 		$image
 		
 	fi

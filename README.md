@@ -9,7 +9,7 @@
 Install globally via GitHub:
 
 ```bash
-$ npm i [USER]/[REPO] -g
+$ npm i mhulse/kludgy -g
 ```
 
 Install system dependency:

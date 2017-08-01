@@ -1,27 +1,25 @@
 {
-  "name": "random-street-coords",
+  "name": "kludgy",
   "version": "0.1.0",
-  "description": "",
-  "author": "",
-  "license": "",
+  "description": "Random Google Street View Desktop Wallpaper for macOS",
+  "author": "Michael Hulse",
+  "license": "Apache 2.0",
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "https://github.com/mhulse/kludgy.git"
   },
-  "main": "main",
+  "main": "kludgy",
   "scripts": {
-    "esv": "extract-streetview",
-    "coords": "source ./pano.sh; getCoords",
-    "pano": "source ./pano.sh; makePano",
-    "start": "npm run pano",
+    "getCoords": "source ./kludgy.sh; getCoords",
+    "makePano": "source ./kludgy.sh; makePano",
+    "start": "npm run makePano",
     "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",
     "example": "npm run _example -- world stranger"
   },
   "bin": {
-    "dtpano": "bin.js"
+    "kludgy": "bin.js"
   },
   "dependencies": {
-    "concat": "^1.0.3",
     "extract-streetview": "^1.2.0",
     "zombie": "^5.0.7"
   }

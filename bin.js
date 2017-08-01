@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // jshint esversion:6
 
-const exec = require('child_process').exec;
+const exec = require('child_process').execSync;
 
-// https://stackoverflow.com/a/36434589/922323
-exec('npm run pano');
+const helpers = require('./helpers');
+
+exec(`npm start -- "${helpers.argv(0)}" "${helpers.argv(1)}"`);

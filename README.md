@@ -34,6 +34,8 @@ Local commands (useful for development purposes):
 ```bash
 # Returns JSON string with random lat/lon, pano ID and copyright as keys:
 $ npm run getCoords -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
+# Same as above:
+$ node . "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
 # Sets macOS desktop wallpaper with geo tagged Google equirectangular panorama:
 $ npm start -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
 # … or:

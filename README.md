@@ -2,6 +2,8 @@
 
 ![](example.png)
 
+![](example-tiny.png)
+
 **Random Google Street View Desktop Wallpaper for macOS**
 
 ## Installation
@@ -32,6 +34,8 @@ $ kludgy "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw" "/Users/bob/Desktop/"
 Local commands (useful for development purposes):
 
 ```bash
+# Returns the parsed result of the passed-in command line arguments:
+$ npm run getOptions -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
 # Returns JSON string with random lat/lon, pano ID and copyright as keys:
 $ npm run getCoords -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
 # Same as above:
@@ -41,12 +45,14 @@ $ npm start -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
 # … or:
 $ npm run makePano -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw"
 # Same as above, but pano images are saved to the specified location (in this case, the user’s desktop):
-$ npm start -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw" "/Users/bob/Desktop/"
+$ npm start -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw" false "/Users/bob/Desktop/"
+# This will generate a tiny planet from pano image:
+$ npm start -- "AIzaSyDNuylDKnjnYY46zkORPEt2-g4HK3O6wnw" false "/Users/bob/Desktop/"
 ```
 
 ---
 
-Copyright © 2017 [Michael Hulse](http://mky.io).
+Copyright © 2017-18 [Michael Hulse](http://mky.io).
 
 Licensed under the Apache License, Version 2.0 (the “License”); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
 

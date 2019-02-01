@@ -10,6 +10,7 @@
   },
   "main": "kludgy",
   "scripts": {
+    "getOptions": "source ./kludgy.sh; getOptions",
     "getCoords": "source ./kludgy.sh; getCoords",
     "makePano": "source ./kludgy.sh; makePano",
     "start": "npm run makePano",
@@ -20,7 +21,8 @@
     "kludgy": "bin.js"
   },
   "dependencies": {
+    "asn1": "^0.2.4",
     "extract-streetview": "^1.2.0",
-    "zombie": "^5.0.7"
+    "zombie": "^6.1.4"
   }
 }

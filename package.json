@@ -1,28 +1,36 @@
 {
   "name": "kludgy",
-  "version": "0.1.0",
-  "description": "Random Google Street View Desktop Wallpaper for macOS",
+  "version": "2.0.0",
+  "description": "A macOS Node.js module/app that generates a random Google Street View desktop wallpaper.",
   "author": "Michael Hulse",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "mocha",
+    "start": "node .",
+    "example": "node test/example.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mhulse/kludgy.git"
   },
-  "main": "kludgy",
-  "scripts": {
-    "getOptions": "source ./kludgy.sh; getOptions",
-    "getCoords": "source ./kludgy.sh; getCoords",
-    "makePano": "source ./kludgy.sh; makePano",
-    "start": "npm run makePano",
-    "_example": "f() { echo \"Hello ${1}!\" && echo \"Bye ${2}!\"; }; f",
-    "example": "npm run _example -- world stranger"
-  },
-  "bin": {
-    "kludgy": "bin.js"
-  },
+  "main": "index.js",
   "dependencies": {
-    "asn1": "^0.2.4",
-    "extract-streetview": "^1.2.0",
-    "zombie": "^6.1.4"
+    "await-exec": "^0.1.2",
+    "equirectangular": "github:mhulse/equirectangular",
+    "fisheye": "github:mhulse/tiny-planet",
+    "fs-extra": "^7.0.0",
+    "internet-shortcut": "github:mhulse/internet-shortcut",
+    "parallel-image-downloader": "github:mhulse/parallel-image-downloader",
+    "rand-land-coords": "github:mhulse/rand-land-coords",
+    "rand-street-view": "github:mhulse/rand-street-view",
+    "simple-gps": "github:mhulse/simple-gps",
+    "tile-parser": "github:mhulse/tile-parser",
+    "tile-urls": "github:mhulse/tile-urls",
+    "untildify": "^3.0.3",
+    "wallpaper": "^4.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.3"
   }
 }

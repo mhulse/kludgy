@@ -7,8 +7,8 @@ class Kludgy {
     const defaults = {
       debug: 0,
       directory: './panos',
-      fisheye: 'random',
-      key: '',
+      fisheye: undefined,
+      key: undefined,
     };
 
     this._options = {

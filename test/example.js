@@ -3,9 +3,9 @@ const Kludgy = require('../index');
 (async () => {
 
   const kludgy = new Kludgy({
-    debug: 1, // 2 = all placehoder data returned.
+    debug: 1,
     // directory: '~/Desktop/panos',
-    fisheye: 'both', // You get both view types, but it will take longer.
+    fisheye: 'both',
     key: require('./key'),
   });
 

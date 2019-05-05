@@ -71,8 +71,6 @@ class Kludgy {
 
     } catch (err) {
 
-      console.error('Program error, exiting!');
-
       // Turn on debug to ensure logging:
       this._debug = true;
 
@@ -82,12 +80,8 @@ class Kludgy {
 
       if (this._debug) {
 
-        try {
-          const log = await this.logData();
-          console.log(`Log file written to: ${log}`);
-        } catch (err) {
-          console.error('Failed to write log file', err);
-        }
+        const log = await this.logData();
+        console.log(`Log file written to: ${log}`);
 
       }
 
@@ -102,11 +96,7 @@ class Kludgy {
     return lib.validate({
       ... o,
       levels: this._levels,
-    })
-      .catch(err => {
-        console.error('Failed to validate options');
-        throw err;
-      });
+    });
 
   }
 
@@ -116,11 +106,7 @@ class Kludgy {
       tmp: this._tmp,
     });
 
-    return clean.all()
-      .catch(err => {
-        console.error('Failed to clean project');
-        throw err;
-      });
+    return clean.all();
 
   }
 
@@ -134,11 +120,7 @@ class Kludgy {
     return lib.randStreetView({
       debug: this._debug,
       key: o.key,
-    })
-      .catch(err => {
-        console.error('Failed to get random street view');
-        throw err;
-      });
+    });
 
   }
 
@@ -151,11 +133,7 @@ class Kludgy {
 
     return lib.tileParser({
       tiles: this._randStreetView.tiles
-    })
-      .catch(err => {
-        console.error('Failed to parse tiles');
-        throw err;
-      });
+    });
 
   }
 
@@ -172,11 +150,7 @@ class Kludgy {
       zoom: this._tileParser.zoom,
       rows: this._tileParser.rows,
       cols: this._tileParser.cols,
-    })
-      .catch(err => {
-        console.error('Failed to get tile urls');
-        throw err;
-      });
+    });
 
   }
 
@@ -191,11 +165,7 @@ class Kludgy {
       urls: this._getTileUrls,
       debug: this._debug,
       tmp: this._tmp,
-    })
-      .catch(err => {
-        console.error('Failed to download tiles');
-        throw err;
-      });
+    });
 
   }
 
@@ -216,11 +186,7 @@ class Kludgy {
       cols: this._tileParser.cols,
       input: input,
       output: output,
-    })
-      .catch(err => {
-        console.error('Failed to make equirectangular image');
-        throw err;
-      });
+    });
 
   }
 
@@ -237,11 +203,7 @@ class Kludgy {
         directory: o.directory,
         image: this._eqequirectangular,
         view: o.fisheye,
-      })
-        .catch(err => {
-          console.error('Failed to make fisheye image');
-          throw err;
-        });
+      });
 
     }
 
@@ -264,11 +226,7 @@ class Kludgy {
         this._eqequirectangular,
         ... fisheye,
       ],
-    })
-      .catch(err => {
-        console.error('Failed to write GPS coordinates');
-        throw err;
-      });
+    });
 
   }
 
@@ -316,11 +274,7 @@ class Kludgy {
 
     return lib.wallpaper({
       image: image
-    })
-      .catch(err => {
-        console.error('Failed to set desktop wallpaper');
-        throw err;
-      });
+    });
 
   }
 
@@ -330,6 +284,9 @@ class Kludgy {
 
     if (o.debug === 2)
       return require('./lib/data/logData');
+
+    // Fallback to timestamp if `image_key` is undefined:
+    const name = (this._randStreetView.image_key || Date.now());
 
     return lib.logData({
       data: {
@@ -345,7 +302,7 @@ class Kludgy {
         simpleGps: this._simpleGps,
         wallpaper: this._wallpaper,
       },
-      output: lib.util.joinPaths(o.directory, `${this._randStreetView.image_key}.json`),
+      output: lib.util.joinPaths(o.directory, `${name}.json`),
     });
 
   }

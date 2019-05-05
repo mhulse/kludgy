@@ -286,7 +286,7 @@ class Kludgy {
       return require('./lib/data/logData');
 
     // Fallback to timestamp if `image_key` is undefined:
-    const name = (this._randStreetView.image_key || Date.now());
+    const name = ((this._randStreetView && this._randStreetView.image_key) || Date.now());
 
     return lib.logData({
       data: {

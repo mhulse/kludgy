@@ -25,7 +25,7 @@ class Kludgy {
       2, // IBID + placeholder data.
     ];
 
-    this._tmp = './tmp';
+    this._tmp = `${__dirname}/tmp`;
 
   }
 
@@ -36,38 +36,38 @@ class Kludgy {
     try {
 
       this._validate = await this.validate();
-      o.debug && console.log('validate', this._validate);
+      this._debug && console.log('validate', this._validate);
 
       this._clean = await this.clean();
-      o.debug && console.log('clean', this._clean);
+      this._debug && console.log('clean', this._clean);
 
       this._randStreetView = await this.getRandStreetView();
-      o.debug && console.log('randStreeView', this._randStreetView);
+      this._debug && console.log('randStreeView', this._randStreetView);
 
       this._tileParser = await this.getTileParser();
-      o.debug && console.log('tileParser', this._tileParser);
+      this._debug && console.log('tileParser', this._tileParser);
 
       this._getTileUrls = await this.getTileUrls();
-      o.debug && console.log('getTileUrls', this._getTileUrls);
+      this._debug && console.log('getTileUrls', this._getTileUrls);
 
       this._downloadTiles = await this.getDownloadTiles();
-      o.debug && console.log('downloadTiles', this._downloadTiles);
+      this._debug && console.log('downloadTiles', this._downloadTiles);
 
       this._eqequirectangular = await this.getEquirectangular();
-      o.debug && console.log('equirectangular', this._eqequirectangular);
+      this._debug && console.log('equirectangular', this._eqequirectangular);
 
       this._fisheye = await this.getFisheye();
-      o.debug && console.log('fisheye', this._fisheye);
+      this._debug && console.log('fisheye', this._fisheye);
 
       this._simpleGps = await this.getSimpleGps();
-      o.debug && console.log('simpleGps', this._simpleGps);
+      this._debug && console.log('simpleGps', this._simpleGps);
 
       this._shortcut = await this.getShortcut();
-      o.debug && console.log('shortcut', this._shortcut);
+      this._debug && console.log('shortcut', this._shortcut);
 
       // https://github.com/sindresorhus/macos-wallpaper/issues/4
       this._wallpaper = await this.getWallpaper();
-      o.debug && console.log('wallpaper', this._wallpaper);
+      this._debug && console.log('wallpaper', this._wallpaper);
 
     } catch (err) {
 

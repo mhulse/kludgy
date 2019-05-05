@@ -16,9 +16,11 @@ class Kludgy {
       ... options,
     };
 
-    this._debug = false;
+    // Convert debug to a boolean:
+    this._debug = ( !!+ this._options.debug);
 
     this._levels = [
+      0, // No debug.
       1, // Output console messages.
       2, // IBID + placeholder data.
     ];
@@ -33,14 +35,11 @@ class Kludgy {
 
     try {
 
-      // Convert debug to a boolean:
-      this._debug = ( !!+ o.debug);
+      this._validate = await this.validate();
+      o.debug && console.log('validate', this._validate);
 
       this._clean = await this.clean();
       o.debug && console.log('clean', this._clean);
-
-      this._validate = await this.validate();
-      o.debug && console.log('validate', this._validate);
 
       this._randStreetView = await this.getRandStreetView();
       o.debug && console.log('randStreeView', this._randStreetView);
@@ -96,20 +95,6 @@ class Kludgy {
 
   }
 
-  async clean () {
-
-    const clean = new lib.clean({
-      tmp: this._tmp,
-    });
-
-    return clean.all()
-      .catch(err => {
-        console.error('Failed to clean project');
-        throw err;
-      });
-
-  }
-
   async validate () {
 
     const o = this._options;
@@ -120,6 +105,20 @@ class Kludgy {
     })
       .catch(err => {
         console.error('Failed to validate options');
+        throw err;
+      });
+
+  }
+
+  async clean () {
+
+    const clean = new lib.clean({
+      tmp: this._tmp,
+    });
+
+    return clean.all()
+      .catch(err => {
+        console.error('Failed to clean project');
         throw err;
       });
 

@@ -6,7 +6,7 @@ class Kludgy {
 
     const defaults = {
       debug: 0,
-      directory: './panos',
+      directory: `${__dirname}/panos`,
       fisheye: undefined,
       key: undefined,
     };

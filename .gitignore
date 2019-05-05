@@ -91,6 +91,5 @@ sitemap.xml.gz*~
 ####################
 
 node_modules
-/panos/*
 /test/key.js
 /tmp/

@@ -203,7 +203,7 @@ class Kludgy {
       return require('./lib/data/equirectangular');
 
     const input = lib.util.joinPaths(this._downloadTiles[0], 'tile_*');
-    const output = lib.util.joinPaths(o.directory, `${this._randStreetView.image_key}.jpg`)
+    const output = lib.util.joinPaths(o.directory, `${this._randStreetView.image_key}.jpg`);
 
     return lib.equirectangular({
       crop: this._tileParser.crop,
